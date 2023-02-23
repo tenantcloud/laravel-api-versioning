@@ -1,5 +1,5 @@
 {
-	"name": "tenantcloud/composer-package",
+	"name": "tenantcloud/laravel-api-versioning",
 	"description": "Simple Laravel API versioning implementation",
 	"license": "MIT",
 	"require": {
