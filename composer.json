@@ -1,6 +1,6 @@
 {
 	"name": "tenantcloud/composer-package",
-	"description": "A template for composer packages",
+	"description": "Simple Laravel API versioning implementation",
 	"license": "MIT",
 	"require": {
 		"php": ">=8.1",
