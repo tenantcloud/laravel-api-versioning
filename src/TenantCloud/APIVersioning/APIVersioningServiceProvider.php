@@ -18,6 +18,10 @@ class APIVersioningServiceProvider extends ServiceProvider
 
 	public function register(): void
 	{
+		parent::register();
+
+		$this->mergeConfigFrom(__DIR__ . '/config/api-versioning.php', 'api-versioning');
+
 		// Bind laravel controller dispatcher for our custom versioned dispatcher.
 		$this->app->bind(
 			ControllerDispatcher::class,

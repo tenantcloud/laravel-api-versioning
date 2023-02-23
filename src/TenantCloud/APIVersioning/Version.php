@@ -2,10 +2,12 @@
 
 namespace TenantCloud\APIVersioning;
 
+use Illuminate\Config\Repository;
+
 final class Version
 {
 	public const LATEST = 'latest';
-	public const V1_0 = '1.0';
+	public const LOWEST = '1.0';
 
 	/**
 	 * We need current latest version for version comparison when we get self::LATEST version from client.
@@ -13,11 +15,11 @@ final class Version
 	 */
 	public static function currentLatestVersion(): string
 	{
-		return self::V1_0;
+		return resolve(Repository::class)->get('api-versioning.latest_version');
 	}
 
 	public static function getLowestVersion(): string
 	{
-		return self::V1_0;
+		return resolve(Repository::class)->get('api-versioning.lowest_version');
 	}
 }
