@@ -2,6 +2,8 @@
 
 namespace TenantCloud\APIVersioning;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Contracts\ControllerDispatcher;
 use Illuminate\Routing\Route;
 use Illuminate\Support\ServiceProvider;
@@ -28,6 +30,9 @@ class APIVersioningServiceProvider extends ServiceProvider
 			VersionControllerDispatcher::class
 		);
 
-		$this->app->bind(VersionParser::class, fn () => new VersionFromHeader(request()));
+		$this->app->singleton(
+			VersionParser::class,
+			fn (Application $app) => new VersionFromHeader($app->factory(Request::class))
+		);
 	}
 }

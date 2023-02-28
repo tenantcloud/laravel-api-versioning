@@ -15,7 +15,7 @@ class VersionFromHeaderTest extends TestCase
 	{
 		$request = new Request();
 
-		$version = (new VersionFromHeader($request))->getVersion();
+		$version = (new VersionFromHeader(fn () => $request))->getVersion();
 
 		self::assertEquals(Version::currentLatestVersion(), $version);
 	}
@@ -25,7 +25,7 @@ class VersionFromHeaderTest extends TestCase
 		$request = new Request();
 		$request->headers->set('Version', 'latest');
 
-		$version = (new VersionFromHeader($request))->getVersion();
+		$version = (new VersionFromHeader(fn () => $request))->getVersion();
 
 		self::assertEquals(Version::currentLatestVersion(), $version);
 	}
@@ -35,7 +35,7 @@ class VersionFromHeaderTest extends TestCase
 		$request = new Request();
 		$request->headers->set('Version', 'test');
 
-		$version = (new VersionFromHeader($request))->getVersion();
+		$version = (new VersionFromHeader(fn () => $request))->getVersion();
 
 		self::assertEquals(Version::getLowestVersion(), $version);
 	}
@@ -45,7 +45,7 @@ class VersionFromHeaderTest extends TestCase
 		$request = new Request();
 		$request->headers->set('Version', '3.0');
 
-		$version = (new VersionFromHeader($request))->getVersion();
+		$version = (new VersionFromHeader(fn () => $request))->getVersion();
 
 		self::assertEquals('3.0', $version);
 	}

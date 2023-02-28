@@ -11,13 +11,17 @@ use Tests\VersionFromHeaderTest;
  */
 class VersionFromHeader implements VersionParser
 {
-	public function __construct(private Request $request)
-	{
+	/**
+	 * @param callable(): Request $requestFactory
+	 */
+	public function __construct(
+		private readonly mixed $requestFactory
+	) {
 	}
 
 	public function getVersion(): string
 	{
-		$acceptHeader = $this->request->header('Version', Version::LATEST);
+		$acceptHeader = ($this->requestFactory)()->header('Version', Version::LATEST);
 
 		if ($acceptHeader === Version::LATEST) {
 			return Version::currentLatestVersion();
