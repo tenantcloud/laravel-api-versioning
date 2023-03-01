@@ -14,6 +14,10 @@ class APIVersioningServiceProvider extends ServiceProvider
 {
 	public function boot(): void
 	{
+		$this->publishes([
+			__DIR__ . '/config/api-versioning.php' => config_path('api-versioning.php'),
+		]);
+
 		// Versioned API mixin
 		Route::mixin(new RouteVersionMixin());
 	}
