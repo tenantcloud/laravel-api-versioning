@@ -3,7 +3,11 @@
 namespace Tests;
 
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use TenantCloud\APIVersioning\Constrain\BadConstraintException;
 use TenantCloud\APIVersioning\RouteVersionMixin;
+use TenantCloud\APIVersioning\Version\LatestVersion;
+use TenantCloud\APIVersioning\Version\SemanticVersion;
 use Tests\Mocks\MockResourceController;
 
 /**
@@ -43,8 +47,8 @@ class RouteVersionMixinTest extends TestCase
 		$route = Route::get('/v1/mock/test', [MockResourceController::class, 'index'])
 			->versioned('==1.0', [MockResourceController::class, 'index']);
 
-		self::assertTrue($route->isVersionRegister('1.0'));
-		self::assertFalse($route->isVersionRegister('2.0'));
+		self::assertTrue($route->isVersionRegister(new SemanticVersion('1.0')));
+		self::assertFalse($route->isVersionRegister(new SemanticVersion('2.0')));
 	}
 
 	public function testHasRegisteredRule(): void
@@ -57,5 +61,48 @@ class RouteVersionMixinTest extends TestCase
 		$route = Route::get('/v1/mock/test1', [MockResourceController::class, 'index']);
 
 		self::assertFalse($route->hasRegisteredVersion());
+	}
+
+	public function testGetVersionClassAndMethodNoSuggestedConstraint(): void
+	{
+		$route = Route::get('/v1/mock/test', [MockResourceController::class, 'index'])
+			->versioned('==1.0', [MockResourceController::class, 'index']);
+
+		$this->expectException(BadRequestHttpException::class);
+		$route->getVersionClassAndMethod(new SemanticVersion(2.0));
+	}
+
+	public function testGetVersionClassAndMethodNoSuggestedConstraintForLatestVersion(): void
+	{
+		$route = Route::get('/v1/mock/test', [MockResourceController::class, 'index'])
+			->versioned('==1.0', [MockResourceController::class, 'index']);
+
+		$this->expectException(BadRequestHttpException::class);
+		$route->getVersionClassAndMethod(new LatestVersion());
+	}
+
+	public function testBadConstraints(): void
+	{
+		$route = Route::get('/v1/mock/test', [MockResourceController::class, 'index'])
+			->versioned('test', [MockResourceController::class, 'index']);
+
+		$this->expectException(BadConstraintException::class);
+		$route->getVersionClassAndMethod(new LatestVersion());
+	}
+
+	public function testExistedConstraintForExistedVersion(): void
+	{
+		$route = Route::get('/v1/mock/test', [MockResourceController::class, 'index'])
+			->versioned('==1.0', [MockResourceController::class, 'index']);
+
+		self::assertEquals('index', $route->getVersionClassAndMethod(new SemanticVersion('1.0'))[1]);
+	}
+
+	public function testExistedConstraintForLatestVersion(): void
+	{
+		$route = Route::get('/v1/mock/test', [MockResourceController::class, 'index'])
+			->versioned('>=1.0', [MockResourceController::class, 'index']);
+
+		self::assertEquals('index', $route->getVersionClassAndMethod(new LatestVersion())[1]);
 	}
 }
