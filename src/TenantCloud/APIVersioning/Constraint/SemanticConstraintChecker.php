@@ -1,6 +1,6 @@
 <?php
 
-namespace TenantCloud\APIVersioning\Constrain;
+namespace TenantCloud\APIVersioning\Constraint;
 
 use TenantCloud\APIVersioning\Version\LatestVersion;
 use TenantCloud\APIVersioning\Version\SemanticVersion;
@@ -12,6 +12,8 @@ use Tests\SemanticConstraintCheckerTest;
  */
 class SemanticConstraintChecker implements ConstraintChecker
 {
+	public const LATEST_VERSION_PRESENTATION = '1000000.0';
+
 	public function __construct(private readonly StringConstraintParser $constraintParser)
 	{
 	}
@@ -34,7 +36,7 @@ class SemanticConstraintChecker implements ConstraintChecker
 
 		// If latest version - create the highest semantic version object.
 		if ($version instanceof LatestVersion) {
-			$version = new SemanticVersion('1000000.0');
+			$version = new SemanticVersion(self::LATEST_VERSION_PRESENTATION);
 		}
 
 		foreach ($constraints as $rawVersionRule) {
@@ -59,7 +61,7 @@ class SemanticConstraintChecker implements ConstraintChecker
 	{
 		// If latest version - create the highest semantic version object.
 		if ($version instanceof LatestVersion) {
-			$version = new SemanticVersion('1000000.0');
+			$version = new SemanticVersion(self::LATEST_VERSION_PRESENTATION);
 		}
 
 		foreach ($constraints as $rawVersionRule) {

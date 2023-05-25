@@ -3,10 +3,10 @@
 namespace Tests;
 
 use Generator;
-use TenantCloud\APIVersioning\Constrain\BadConstraintException;
-use TenantCloud\APIVersioning\Constrain\Constraint;
-use TenantCloud\APIVersioning\Constrain\Operator;
-use TenantCloud\APIVersioning\Constrain\SemanticConstraintChecker;
+use TenantCloud\APIVersioning\Constraint\BadConstraintException;
+use TenantCloud\APIVersioning\Constraint\Constraint;
+use TenantCloud\APIVersioning\Constraint\Operator;
+use TenantCloud\APIVersioning\Constraint\SemanticConstraintChecker;
 use TenantCloud\APIVersioning\Version\LatestVersion;
 use TenantCloud\APIVersioning\Version\SemanticVersion;
 use TenantCloud\APIVersioning\Version\Version;

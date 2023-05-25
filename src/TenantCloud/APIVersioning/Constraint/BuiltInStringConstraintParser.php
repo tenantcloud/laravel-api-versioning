@@ -1,6 +1,6 @@
 <?php
 
-namespace TenantCloud\APIVersioning\Constrain;
+namespace TenantCloud\APIVersioning\Constraint;
 
 use TenantCloud\APIVersioning\Version\VersionParser;
 use Tests\BuiltInStringConstraintParserTest;

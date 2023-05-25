@@ -4,7 +4,7 @@ namespace Tests;
 
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use TenantCloud\APIVersioning\Constrain\BadConstraintException;
+use TenantCloud\APIVersioning\Constraint\BadConstraintException;
 use TenantCloud\APIVersioning\RouteVersionMixin;
 use TenantCloud\APIVersioning\Version\LatestVersion;
 use TenantCloud\APIVersioning\Version\SemanticVersion;

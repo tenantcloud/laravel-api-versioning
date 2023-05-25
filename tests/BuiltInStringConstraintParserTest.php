@@ -2,9 +2,9 @@
 
 namespace Tests;
 
-use TenantCloud\APIVersioning\Constrain\BadConstraintException;
-use TenantCloud\APIVersioning\Constrain\BuiltInStringConstraintParser;
-use TenantCloud\APIVersioning\Constrain\Operator;
+use TenantCloud\APIVersioning\Constraint\BadConstraintException;
+use TenantCloud\APIVersioning\Constraint\BuiltInStringConstraintParser;
+use TenantCloud\APIVersioning\Constraint\Operator;
 use TenantCloud\APIVersioning\Version\SemanticVersionParser;
 use TenantCloud\APIVersioning\Version\VersionParser;
 use ValueError;

@@ -6,7 +6,7 @@ use Illuminate\Routing\Route;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use TenantCloud\APIVersioning\Constrain\ConstraintChecker;
+use TenantCloud\APIVersioning\Constraint\ConstraintChecker;
 use TenantCloud\APIVersioning\Version\Version;
 use Tests\RouteVersionMixinTest;
 
