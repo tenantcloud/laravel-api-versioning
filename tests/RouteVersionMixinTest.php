@@ -69,7 +69,7 @@ class RouteVersionMixinTest extends TestCase
 			->versioned('==1.0', [MockResourceController::class, 'index']);
 
 		$this->expectException(BadRequestHttpException::class);
-		$route->getVersionClassAndMethod(new SemanticVersion(2.0));
+		$route->getVersionClassAndMethod(new SemanticVersion('2.0'));
 	}
 
 	public function testGetVersionClassAndMethodNoSuggestedConstraintForLatestVersion(): void
