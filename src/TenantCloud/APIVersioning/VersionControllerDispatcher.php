@@ -28,7 +28,6 @@ class VersionControllerDispatcher extends ControllerDispatcher
 		);
 
 		if (method_exists($controller, 'callAction')) {
-			/** @var object{'callAction': callable} $controller */
 			return $controller->callAction($method, $parameters);
 		}
 
