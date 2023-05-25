@@ -10,6 +10,7 @@ use TenantCloud\APIVersioning\Constraint\SemanticConstraintChecker;
 use TenantCloud\APIVersioning\Version\LatestVersion;
 use TenantCloud\APIVersioning\Version\SemanticVersion;
 use TenantCloud\APIVersioning\Version\Version;
+use Throwable;
 use ValueError;
 
 /**
@@ -29,6 +30,8 @@ class SemanticConstraintCheckerTest extends TestCase
 
 	/**
 	 * @dataProvider constraintsForCompareProvider
+	 *
+	 * @param array<string> $constraints
 	 */
 	public function testCompareVersions(Version $version, array $constraints, bool $expectedResult): void
 	{
@@ -76,6 +79,8 @@ class SemanticConstraintCheckerTest extends TestCase
 
 	/**
 	 * @dataProvider constraintsForMatchesProvider
+	 *
+	 * @param array<string> $constraints
 	 */
 	public function testMatches(Version $version, array $constraints, ?Constraint $expectedConstraint): void
 	{
@@ -123,6 +128,9 @@ class SemanticConstraintCheckerTest extends TestCase
 
 	/**
 	 * @dataProvider wrongConstraintProvider
+	 *
+	 * @param array<string>           $wrongConstraints
+	 * @param class-string<Throwable> $exception
 	 */
 	public function testMatchesWrongConstraint(array $wrongConstraints, string $exception): void
 	{
