@@ -3,17 +3,16 @@ includes:
 	- vendor/phpstan/phpstan-phpunit/extension.neon
 	- vendor/phpstan/phpstan-webmozart-assert/extension.neon
 	- vendor/phpstan/phpstan-mockery/extension.neon
+	- vendor/nunomaduro/larastan/extension.neon
 
 parameters:
 	level: max
 	tmpDir: ./tmp/phpstan
+	treatPhpDocTypesAsCertain: false
 
 	paths:
 		- src
 		- tests
 
 	ignoreErrors:
-		# There's no extension for that :(
-		-
-			message: '#Call to an undefined method Pest\\Expectation|Pest\\Support\\Extendable::#i'
-			path: 'tests/*Test.php'
+		- '#Access to protected property TenantCloud\\APIVersioning\\RouteVersionMixin::\$container.#i'

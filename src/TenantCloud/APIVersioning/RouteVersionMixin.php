@@ -5,7 +5,9 @@ namespace TenantCloud\APIVersioning;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use TenantCloud\APIVersioning\Version\VersionHelper;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use TenantCloud\APIVersioning\Constraint\ConstraintChecker;
+use TenantCloud\APIVersioning\Version\Version;
 use Tests\RouteVersionMixinTest;
 
 /**
@@ -17,6 +19,10 @@ use Tests\RouteVersionMixinTest;
  */
 class RouteVersionMixin
 {
+	public function __construct(public readonly ConstraintChecker $checker)
+	{
+	}
+
 	/**
 	 * Fluent variant for "as" option of a resource.
 	 */
@@ -26,49 +32,54 @@ class RouteVersionMixin
 		 * @param string $version
 		 * @param  array|string|callable|null  $action
 		 */
-		return function (string $version, $action = null) {
-			$this->action['versions'][$version] = Arr::except($this->parseAction($action), ['prefix']);
+		return function (string $rule, $action = null) {
+			$this->action['versions'][$rule] = Arr::except($this->parseAction($action), ['prefix']);
 
 			return $this;
 		};
 	}
 
-	public function getVersionController(): callable
+	public function getVersionClassAndMethod(): callable
 	{
-		return function (string $version) {
-			$suggestedVersionRule = app(VersionHelper::class)->suggestedVersionRule($version, array_keys($this->action['versions']));
+		$that = $this;
 
-			$versionData = Arr::get($this->action['versions'], $suggestedVersionRule);
+		return function (Version $version) use ($that) {
+			/** @var string[] $constraints */
+			$constraints = array_keys($this->action['versions']);
 
-			$class = Str::parseCallback($versionData['uses'])[0];
+			$suggestedConstraint = $that->checker->matches($version, $constraints);
 
-			return $this->container->make(ltrim($class, '\\'));
+			if ($suggestedConstraint === null) {
+				throw new BadRequestHttpException();
+			}
+
+			/** @var array{'uses': string} $versionData */
+			$versionData = Arr::get($this->action['versions'], (string) $suggestedConstraint);
+
+			return [
+				$this->container->make(ltrim((string) Str::parseCallback($versionData['uses'])[0], '\\')),
+				Str::parseCallback($versionData['uses'])[1],
+			];
 		};
 	}
 
-	public function getVersionMethod(): callable
+	public function hasMatchedConstraint(): callable
 	{
-		return function (string $version) {
-			$suggestedVersionRule = app(VersionHelper::class)->suggestedVersionRule($version, array_keys($this->action['versions']));
+		$that = $this;
 
-			$versionData = Arr::get($this->action['versions'], $suggestedVersionRule);
-
-			return Str::parseCallback($versionData['uses'])[1];
-		};
-	}
-
-	public function isVersionRegister(): callable
-	{
-		return function (string $version) {
+		return function (Version $version) use ($that) {
 			if (!Arr::has($this->action, 'versions')) {
 				return false;
 			}
 
-			return app(VersionHelper::class)->compareVersions($version, array_keys($this->action['versions']));
+			/** @var string[] $constraints */
+			$constraints = array_keys($this->action['versions']);
+
+			return $that->checker->compareVersions($version, $constraints);
 		};
 	}
 
-	public function hasRegisteredVersion(): callable
+	public function hasRegisteredVersions(): callable
 	{
 		return fn () => Arr::has($this->action, 'versions');
 	}

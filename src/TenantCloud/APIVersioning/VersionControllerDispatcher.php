@@ -2,9 +2,10 @@
 
 namespace TenantCloud\APIVersioning;
 
+use Illuminate\Http\Request;
 use Illuminate\Routing\ControllerDispatcher;
 use Illuminate\Routing\Route;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use TenantCloud\APIVersioning\Version\RequestVersionParser;
 use TenantCloud\APIVersioning\Version\VersionParser;
 
 class VersionControllerDispatcher extends ControllerDispatcher
@@ -12,8 +13,8 @@ class VersionControllerDispatcher extends ControllerDispatcher
 	/**
 	 * Dispatch a request to a given controller and method.
 	 *
-	 * @param $defaultController
-	 * @param $defaultMethod
+	 * @param object $defaultController
+	 * @param string $defaultMethod
 	 *
 	 * @return mixed
 	 */
@@ -30,25 +31,26 @@ class VersionControllerDispatcher extends ControllerDispatcher
 			return $controller->callAction($method, $parameters);
 		}
 
+		/** @var string $controller */
 		return $controller->{$method}(...array_values($parameters));
 	}
 
 	/**
-	 * @param $controller
-	 * @param $method
+	 * @param object $controller
+	 * @param string $method
+	 *
+	 * @return array{object, string}
 	 */
 	public function resolveVersionClassAndMethod(Route $route, $controller, $method): array
 	{
-		$version = app(VersionParser::class)->getVersion();
+		$versionString = app(RequestVersionParser::class)->parse(request());
 
-		if (!$route->hasRegisteredVersion()) {
+		$version = app(VersionParser::class)->parse($versionString);
+
+		if (!$route->hasRegisteredVersions()) {
 			return [$controller, $method];
 		}
 
-		if (!$route->isVersionRegister($version)) {
-			throw new BadRequestHttpException();
-		}
-
-		return [$route->getVersionController($version), $route->getVersionMethod($version)];
+		return $route->getVersionClassAndMethod($version);
 	}
 }

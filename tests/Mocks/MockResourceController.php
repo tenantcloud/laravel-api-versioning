@@ -6,37 +6,56 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Routing\Route;
 
 class MockResourceController extends Controller
 {
 	public function index(Request $request): JsonResponse
 	{
-		return new JsonResponse(['route_name' => $request->route()->getName()]);
+		/** @var Route $route */
+		$route = $request->route();
+
+		return new JsonResponse(['route_name' => $route->getName()]);
 	}
 
 	public function create(Request $request): JsonResponse
 	{
-		return new JsonResponse(['route_name' => $request->route()->getName()]);
+		/** @var Route $route */
+		$route = $request->route();
+
+		return new JsonResponse(['route_name' => $route->getName()]);
 	}
 
 	public function store(Request $request): JsonResponse
 	{
-		return new JsonResponse(['route_name' => $request->route()->getName()], Response::HTTP_CREATED);
+		/** @var Route $route */
+		$route = $request->route();
+
+		return new JsonResponse(['route_name' => $route->getName()], Response::HTTP_CREATED);
 	}
 
 	public function show(int $id, Request $request): JsonResponse
 	{
-		return new JsonResponse(['route_name' => $request->route()->getName()]);
+		/** @var Route $route */
+		$route = $request->route();
+
+		return new JsonResponse(['route_name' => $route->getName()]);
 	}
 
 	public function edit(int $id, Request $request): JsonResponse
 	{
-		return new JsonResponse(['route_name' => $request->route()->getName()]);
+		/** @var Route $route */
+		$route = $request->route();
+
+		return new JsonResponse(['route_name' => $route->getName()]);
 	}
 
 	public function update(int $id, Request $request): JsonResponse
 	{
-		return new JsonResponse(['route_name' => $request->route()->getName()]);
+		/** @var Route $route */
+		$route = $request->route();
+
+		return new JsonResponse(['route_name' => $route->getName()]);
 	}
 
 	public function destroy(int $id, Request $request): JsonResponse
