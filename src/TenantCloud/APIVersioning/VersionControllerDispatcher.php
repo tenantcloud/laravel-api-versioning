@@ -43,11 +43,11 @@ class VersionControllerDispatcher extends ControllerDispatcher
 	 */
 	public function resolveVersionClassAndMethod(Route $route, $controller, $method): array
 	{
-		$versionString = app(RequestVersionParser::class)->getVersionString(request());
+		$versionString = app(RequestVersionParser::class)->parse(request());
 
 		$version = app(VersionParser::class)->parse($versionString);
 
-		if (!$route->hasRegisteredVersion()) {
+		if (!$route->hasRegisteredVersions()) {
 			return [$controller, $method];
 		}
 

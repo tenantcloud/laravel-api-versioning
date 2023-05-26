@@ -55,7 +55,7 @@ class APIVersioningServiceProvider extends ServiceProvider
 
 		Route::macro('versioned', $mixin->versioned());
 		Route::macro('getVersionClassAndMethod', $mixin->getVersionClassAndMethod());
-		Route::macro('isVersionRegister', $mixin->isVersionRegister());
-		Route::macro('hasRegisteredVersion', $mixin->hasRegisteredVersion());
+		Route::macro('hasMatchedConstraint', $mixin->hasMatchedConstraint());
+		Route::macro('hasRegisteredVersions', $mixin->hasRegisteredVersions());
 	}
 }

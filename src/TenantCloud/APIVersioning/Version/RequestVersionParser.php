@@ -6,5 +6,5 @@ use Illuminate\Http\Request;
 
 interface RequestVersionParser
 {
-	public function getVersionString(Request $request): ?string;
+	public function parse(Request $request): ?string;
 }

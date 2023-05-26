@@ -10,8 +10,8 @@ namespace Illuminate\Routing {
 	 * @see RouteVersionMixin
 	 * @method self versioned(string $rule, array|string|callable|null $action = null)
 	 * @method array<mixed> getVersionClassAndMethod(Version $version)
-	 * @method bool isVersionRegister(Version $version)
-	 * @method bool hasRegisteredVersion()
+	 * @method bool hasMatchedConstraint(Version $version)
+	 * @method bool hasRegisteredVersions()
 	 */
 	class Route
 	{

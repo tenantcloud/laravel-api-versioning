@@ -11,7 +11,7 @@ use Tests\SemanticVersionParserTest;
 class SemanticVersionParser implements VersionParser
 {
 	public const LATEST = 'latest';
-	public const REGEX_VERSION_RULE = '/v?([0-9\.]+)/i';
+	public const REGEX_VERSION_RULE = '/([0-9\.]+)/i';
 
 	public function parse(?string $version): Version
 	{
@@ -23,6 +23,6 @@ class SemanticVersionParser implements VersionParser
 			throw new BadVersionException("Version {$version} didn't match " . self::REGEX_VERSION_RULE);
 		}
 
-		return new SemanticVersion($matches[1]);
+		return new SemanticVersion($matches[0]);
 	}
 }

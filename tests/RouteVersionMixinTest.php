@@ -47,8 +47,8 @@ class RouteVersionMixinTest extends TestCase
 		$route = Route::get('/v1/mock/test', [MockResourceController::class, 'index'])
 			->versioned('==1.0', [MockResourceController::class, 'index']);
 
-		self::assertTrue($route->isVersionRegister(new SemanticVersion('1.0')));
-		self::assertFalse($route->isVersionRegister(new SemanticVersion('2.0')));
+		self::assertTrue($route->hasMatchedConstraint(new SemanticVersion('1.0')));
+		self::assertFalse($route->hasMatchedConstraint(new SemanticVersion('2.0')));
 	}
 
 	public function testHasRegisteredRule(): void
@@ -56,11 +56,11 @@ class RouteVersionMixinTest extends TestCase
 		$route = Route::get('/v1/mock/test', [MockResourceController::class, 'index'])
 			->versioned('==1.0', [MockResourceController::class, 'index']);
 
-		self::assertTrue($route->hasRegisteredVersion());
+		self::assertTrue($route->hasRegisteredVersions());
 
 		$route = Route::get('/v1/mock/test1', [MockResourceController::class, 'index']);
 
-		self::assertFalse($route->hasRegisteredVersion());
+		self::assertFalse($route->hasRegisteredVersions());
 	}
 
 	public function testGetVersionClassAndMethodNoSuggestedConstraint(): void

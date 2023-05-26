@@ -10,7 +10,7 @@ use Tests\VersionFromHeaderTest;
  */
 class RequestHeaderVersionParser implements RequestVersionParser
 {
-	public function getVersionString(Request $request): ?string
+	public function parse(Request $request): ?string
 	{
 		return $request->header('Version');
 	}

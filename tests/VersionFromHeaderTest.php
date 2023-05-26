@@ -16,7 +16,7 @@ class VersionFromHeaderTest extends TestCase
 		$request = new Request();
 		$request->headers->set('Version', 'latest');
 
-		$version = app(RequestVersionParser::class)->getVersionString($request);
+		$version = app(RequestVersionParser::class)->parse($request);
 
 		self::assertEquals('latest', $version);
 	}
@@ -26,7 +26,7 @@ class VersionFromHeaderTest extends TestCase
 		$request = new Request();
 		$request->headers->set('Version', '3.0');
 
-		$version = app(RequestVersionParser::class)->getVersionString($request);
+		$version = app(RequestVersionParser::class)->parse($request);
 
 		self::assertEquals('3.0', $version);
 	}

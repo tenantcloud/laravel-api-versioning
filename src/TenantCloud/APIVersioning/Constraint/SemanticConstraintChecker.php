@@ -44,7 +44,7 @@ class SemanticConstraintChecker implements ConstraintChecker
 
 			if (
 				(string) $version === (string) $versionRule->version &&
-				in_array($versionRule->operator, [Operator::EQUAL->value, Operator::EQ->value, Operator::EQUAL_TO->value], true)
+				in_array($versionRule->operator, [Operator::EQUAL->value, Operator::EQUAL_TO->value], true)
 			) {
 				return $versionRule;
 			}

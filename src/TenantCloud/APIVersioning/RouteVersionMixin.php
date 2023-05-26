@@ -63,7 +63,7 @@ class RouteVersionMixin
 		};
 	}
 
-	public function isVersionRegister(): callable
+	public function hasMatchedConstraint(): callable
 	{
 		$that = $this;
 
@@ -79,7 +79,7 @@ class RouteVersionMixin
 		};
 	}
 
-	public function hasRegisteredVersion(): callable
+	public function hasRegisteredVersions(): callable
 	{
 		return fn () => Arr::has($this->action, 'versions');
 	}

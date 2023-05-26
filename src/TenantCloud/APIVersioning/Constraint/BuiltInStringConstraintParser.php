@@ -27,7 +27,7 @@ class BuiltInStringConstraintParser implements StringConstraintParser
 
 		return new Constraint(
 			operator: Operator::from($result[1]),
-			version: $this->versionParser->parse("v{$result[2]}"),
+			version: $this->versionParser->parse($result[2]),
 		);
 	}
 }
