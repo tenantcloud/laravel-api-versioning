@@ -15,13 +15,12 @@ use Tests\RouteVersionMixinTest;
  *
  * @see Route
  * @see RouteVersionMixinTest
+ *
  * @mixin Route
  */
 class RouteVersionMixin
 {
-	public function __construct(public readonly ConstraintChecker $checker)
-	{
-	}
+	public function __construct(public readonly ConstraintChecker $checker) {}
 
 	/**
 	 * Fluent variant for "as" option of a resource.
