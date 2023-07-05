@@ -9,8 +9,7 @@ class Constraint
 	public function __construct(
 		public readonly Operator $operator,
 		public readonly Version $version,
-	) {
-	}
+	) {}
 
 	public function __toString(): string
 	{

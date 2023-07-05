@@ -14,9 +14,7 @@ class SemanticConstraintChecker implements ConstraintChecker
 {
 	public const LATEST_VERSION_PRESENTATION = '1000000.0';
 
-	public function __construct(private readonly StringConstraintParser $constraintParser)
-	{
-	}
+	public function __construct(private readonly StringConstraintParser $constraintParser) {}
 
 	/**
 	 * If we have version rule like '<=3.0' and '<=2.0' and got version from client '1.0'
