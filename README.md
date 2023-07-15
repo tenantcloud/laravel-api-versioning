@@ -2,18 +2,7 @@
 
 Laravel package for api versioning.
 
-Installation
-In your composer.json, add this repository:
-
-```
-"repositories": [
-{
-"type": "git",
-"url": "https://github.com/tenantcloud/laravel-api-versioning"
-}
-],
-```
-Then do composer require tenantcloud/laravel-api-versioning to install the package.
+Do `composer require tenantcloud/laravel-api-versioning` to install the package.
 
 ### Commands
 
