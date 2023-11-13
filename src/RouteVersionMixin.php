@@ -36,7 +36,9 @@ class RouteVersionMixin
 			if ($action === null) {
 				$this->action['versions'][$rule] = Arr::only($this->action, ['uses', 'controller']);
 			} else {
+				/* @phpstan-ignore-next-line property.protected */
 				if ((fn () => /** @var Router $this */ $this->actionReferencesController($action))->call($this->router)) {
+					/** @phpstan-ignore-next-line property.protected */
 					$action = (fn () => $this->convertToControllerAction($action))->call($this->router);
 				}
 				$this->action['versions'][$rule] = Arr::except($this->parseAction($action), ['prefix']);
