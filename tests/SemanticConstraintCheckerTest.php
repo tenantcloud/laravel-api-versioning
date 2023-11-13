@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use Generator;
 use TenantCloud\APIVersioning\Constraint\BadConstraintException;
 use TenantCloud\APIVersioning\Constraint\Constraint;
 use TenantCloud\APIVersioning\Constraint\Operator;
@@ -29,7 +28,7 @@ class SemanticConstraintCheckerTest extends TestCase
 	}
 
 	/**
-	 * @dataProvider constraintsForCompareProvider
+	 * @dataProvider compareVersionsProvider
 	 *
 	 * @param array<string> $constraints
 	 */
@@ -38,7 +37,7 @@ class SemanticConstraintCheckerTest extends TestCase
 		self::assertEquals($expectedResult, app(SemanticConstraintChecker::class)->compareVersions($version, $constraints));
 	}
 
-	public function constraintsForCompareProvider(): Generator
+	public static function compareVersionsProvider(): iterable
 	{
 		yield 'less' => [
 			new SemanticVersion('3.0'),
@@ -78,7 +77,7 @@ class SemanticConstraintCheckerTest extends TestCase
 	}
 
 	/**
-	 * @dataProvider constraintsForMatchesProvider
+	 * @dataProvider matchesProvider
 	 *
 	 * @param array<string> $constraints
 	 */
@@ -87,7 +86,7 @@ class SemanticConstraintCheckerTest extends TestCase
 		self::assertEquals($expectedConstraint, app(SemanticConstraintChecker::class)->matches($version, $constraints));
 	}
 
-	public function constraintsForMatchesProvider(): Generator
+	public static function matchesProvider(): iterable
 	{
 		yield 'less' => [
 			new SemanticVersion('3.0'),
@@ -127,7 +126,7 @@ class SemanticConstraintCheckerTest extends TestCase
 	}
 
 	/**
-	 * @dataProvider wrongConstraintProvider
+	 * @dataProvider matchesWrongConstraintProvider
 	 *
 	 * @param array<string>           $wrongConstraints
 	 * @param class-string<Throwable> $exception
@@ -138,7 +137,7 @@ class SemanticConstraintCheckerTest extends TestCase
 		app(SemanticConstraintChecker::class)->matches(new SemanticVersion('3.0'), $wrongConstraints);
 	}
 
-	public function wrongConstraintProvider(): Generator
+	public static function matchesWrongConstraintProvider(): iterable
 	{
 		yield 'text' => [
 			['aaa'],

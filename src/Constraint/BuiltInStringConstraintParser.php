@@ -14,8 +14,7 @@ class BuiltInStringConstraintParser implements StringConstraintParser
 
 	public function __construct(
 		private readonly VersionParser $versionParser,
-	) {
-	}
+	) {}
 
 	public function parse(string $constraint): Constraint
 	{

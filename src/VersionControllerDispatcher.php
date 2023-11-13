@@ -2,7 +2,6 @@
 
 namespace TenantCloud\APIVersioning;
 
-use Illuminate\Http\Request;
 use Illuminate\Routing\ControllerDispatcher;
 use Illuminate\Routing\Route;
 use TenantCloud\APIVersioning\Version\RequestVersionParser;
@@ -15,8 +14,6 @@ class VersionControllerDispatcher extends ControllerDispatcher
 	 *
 	 * @param object $defaultController
 	 * @param string $defaultMethod
-	 *
-	 * @return mixed
 	 */
 	public function dispatch(Route $route, $defaultController, $defaultMethod)
 	{

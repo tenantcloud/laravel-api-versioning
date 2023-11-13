@@ -62,4 +62,12 @@ class MockResourceController extends Controller
 	{
 		return new JsonResponse([], Response::HTTP_NO_CONTENT);
 	}
+
+	public function __invoke(Request $request): JsonResponse
+	{
+		/** @var Route $route */
+		$route = $request->route();
+
+		return new JsonResponse(['route_name' => $route->getName()]);
+	}
 }
