@@ -18,9 +18,9 @@ class RouteVersionMixinTest extends TestCase
 	public function testRegisterVersionRule(): void
 	{
 		$route = Route::get('/v1/mock/test', [MockResourceController::class, 'index'])
-			->versioned('1.0', [MockResourceController::class, 'index']);
+			->versioned('==1.0', [MockResourceController::class, 'index']);
 
-		self::assertIsArray($route->action['versions']['1.0']);
+		self::assertIsArray($route->action['versions']['==1.0']);
 	}
 
 	public function testRegisterMultipleVersions(): void
@@ -103,6 +103,24 @@ class RouteVersionMixinTest extends TestCase
 		$route = Route::get('/v1/mock/test', [MockResourceController::class, 'index'])
 			->versioned('>=1.0', [MockResourceController::class, 'index']);
 
+		self::assertEquals('index', $route->getVersionClassAndMethod(new LatestVersion())[1]);
+	}
+
+	public function testInvokeControllerAction(): void
+	{
+		$route = Route::get('/v1/mock/test', [MockResourceController::class, 'index'])
+			->versioned('==1.0', MockResourceController::class);
+
+		self::assertIsArray($route->action['versions']['==1.0']);
+		self::assertEquals('__invoke', $route->getVersionClassAndMethod(new SemanticVersion('1.0'))[1]);
+	}
+
+	public function testDefaultActionUsed(): void
+	{
+		$route = Route::get('/v1/mock/test', [MockResourceController::class, 'index'])
+			->versioned('>=1.0');
+
+		self::assertIsArray($route->action['versions']['>=1.0']);
 		self::assertEquals('index', $route->getVersionClassAndMethod(new LatestVersion())[1]);
 	}
 }
