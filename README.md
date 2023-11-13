@@ -15,7 +15,6 @@ Run tests:
 Run php-cs-fixer on self: 
 `docker run -it --rm -v $PWD:/app -w /app composer cs-fix`
 
-
 ### Usage:
 If no versions needed or endpoint is the same for any version use default Laravel route definition
 ```php
