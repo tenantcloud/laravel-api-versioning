@@ -3,6 +3,7 @@
 namespace TenantCloud\APIVersioning;
 
 use Illuminate\Routing\Route;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -32,7 +33,14 @@ class RouteVersionMixin
 		 * @param  array|string|callable|null  $action
 		 */
 		return function (string $rule, $action = null) {
-			$this->action['versions'][$rule] = Arr::except($this->parseAction($action), ['prefix']);
+			if ($action === null) {
+				$this->action['versions'][$rule] = Arr::only($this->action, ['uses', 'controller']);
+			} else {
+				if ((fn () => /** @var Router $this */ $this->actionReferencesController($action))->call($this->router)) {
+					$action = (fn () => $this->convertToControllerAction($action))->call($this->router);
+				}
+				$this->action['versions'][$rule] = Arr::except($this->parseAction($action), ['prefix']);
+			}
 
 			return $this;
 		};
@@ -49,7 +57,7 @@ class RouteVersionMixin
 			$suggestedConstraint = $that->checker->matches($version, $constraints);
 
 			if ($suggestedConstraint === null) {
-				throw new BadRequestHttpException();
+				throw new BadRequestHttpException("{$version} is not supported.");
 			}
 
 			/** @var array{'uses': string} $versionData */
