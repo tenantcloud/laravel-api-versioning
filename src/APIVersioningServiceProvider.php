@@ -2,6 +2,7 @@
 
 namespace TenantCloud\APIVersioning;
 
+use Illuminate\Http\Request;
 use Illuminate\Routing\Contracts\ControllerDispatcher;
 use Illuminate\Routing\Route;
 use Illuminate\Support\ServiceProvider;
@@ -50,12 +51,15 @@ class APIVersioningServiceProvider extends ServiceProvider
 
 	public function boot(): void
 	{
-		// Versioned API mixin
-		$mixin = new RouteVersionMixin($this->app->make(ConstraintChecker::class));
+		$routeVersionMixin = $this->app->make(RouteVersionMixin::class);
 
-		Route::macro('versioned', $mixin->versioned());
-		Route::macro('getVersionClassAndMethod', $mixin->getVersionClassAndMethod());
-		Route::macro('hasMatchedConstraint', $mixin->hasMatchedConstraint());
-		Route::macro('hasRegisteredVersions', $mixin->hasRegisteredVersions());
+		Route::macro('versioned', $routeVersionMixin->versioned());
+		Route::macro('getVersionClassAndMethod', $routeVersionMixin->getVersionClassAndMethod());
+		Route::macro('hasMatchedConstraint', $routeVersionMixin->hasMatchedConstraint());
+		Route::macro('hasRegisteredVersions', $routeVersionMixin->hasRegisteredVersions());
+
+		$requestMixin = $this->app->make(RequestMixin::class);
+
+		Request::macro('versionMatches', $requestMixin->versionMatches());
 	}
 }
