@@ -19,3 +19,4 @@ parameters:
 			message: '#Method Tests\\.*Test::.* (has parameter|return type) .* (does not specify its type|no value type specified).*#i'
 			path: '*Test.php'
 		- '#Access to (protected|an undefined) property TenantCloud\\APIVersioning\\RouteVersionMixin::\$(container|action).#i'
+		- '#PHPDoc tag \@var with type Illuminate\\Http\\Request is not subtype of native type \$this\(TenantCloud\\APIVersioning\\RequestMixin\)#i'
