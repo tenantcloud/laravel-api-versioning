@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/tenantcloud/laravel-api-versioning/compare/v1.0.0...v1.1.0) (2024-01-15)
+
+
+### Features
+
+* Make versioned requests from tests and add request version matches function ([#7](https://github.com/tenantcloud/laravel-api-versioning/issues/7)) ([3c832f2](https://github.com/tenantcloud/laravel-api-versioning/commit/3c832f27ce31524bbed59b61f2c84f427afc0636))
+
 # 1.0.0 (2023-11-13)
 
 
