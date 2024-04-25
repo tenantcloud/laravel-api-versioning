@@ -1,53 +1,53 @@
 {
-    "name": "tenantcloud/laravel-api-versioning",
-    "description": "Simple Laravel API versioning implementation",
-    "license": "MIT",
-    "require": {
-        "php": ">=8.1",
-        "illuminate/support": "^10.0",
-        "illuminate/routing": "^10.0",
-        "illuminate/contracts": "^10.0"
-    },
-    "require-dev": {
-        "pestphp/pest": "^2.8",
-        "php-cs-fixer/shim": "~3.19.2",
-        "orchestra/testbench": "^8.5",
-        "tenantcloud/php-cs-fixer-rule-sets": "~3.0.0",
-        "phpstan/phpstan": "~1.10.21",
-        "phpstan/phpstan-phpunit": "^1.3",
-        "phpstan/phpstan-webmozart-assert": "^1.2",
-        "phpstan/phpstan-mockery": "^1.1",
-        "nunomaduro/larastan": "^2.6"
-    },
-    "autoload": {
-        "psr-4": {
-            "TenantCloud\\APIVersioning\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
-    "scripts": {
-        "test": "vendor/bin/pest",
-        "coverage": "XDEBUG_MODE=coverage vendor/bin/pest --coverage-html coverage",
-        "cs-fix": "vendor/bin/php-cs-fixer fix -v --show-progress=dots",
-        "phpstan": "vendor/bin/phpstan analyse --memory-limit=2G",
-        "testbench": "vendor/bin/testbench"
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "TenantCloud\\APIVersioning\\APIVersioningServiceProvider"
-            ]
-        }
-    },
-    "minimum-stability": "stable",
-    "prefer-stable": true,
-    "config": {
-        "allow-plugins": {
-            "pestphp/pest-plugin": true
-        }
-    }
+	"name": "tenantcloud/laravel-api-versioning",
+	"description": "Simple Laravel API versioning implementation",
+	"license": "MIT",
+	"require": {
+		"php": ">=8.2",
+		"illuminate/support": "^10.0",
+		"illuminate/routing": "^10.0",
+		"illuminate/contracts": "^10.0"
+	},
+	"require-dev": {
+		"pestphp/pest": "^2.8",
+		"php-cs-fixer/shim": "~3.19.2",
+		"orchestra/testbench": "^8.5",
+		"tenantcloud/php-cs-fixer-rule-sets": "~3.0.0",
+		"phpstan/phpstan": "~1.10.21",
+		"phpstan/phpstan-phpunit": "^1.3",
+		"phpstan/phpstan-webmozart-assert": "^1.2",
+		"phpstan/phpstan-mockery": "^1.1",
+		"nunomaduro/larastan": "^2.6"
+	},
+	"autoload": {
+		"psr-4": {
+			"TenantCloud\\APIVersioning\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Tests\\": "tests/"
+		}
+	},
+	"scripts": {
+		"test": "vendor/bin/pest",
+		"coverage": "XDEBUG_MODE=coverage vendor/bin/pest --coverage-html coverage",
+		"cs-fix": "vendor/bin/php-cs-fixer fix -v --show-progress=dots",
+		"phpstan": "vendor/bin/phpstan analyse --memory-limit=2G",
+		"testbench": "vendor/bin/testbench"
+	},
+	"extra": {
+		"laravel": {
+			"providers": [
+				"TenantCloud\\APIVersioning\\APIVersioningServiceProvider"
+			]
+		}
+	},
+	"minimum-stability": "stable",
+	"prefer-stable": true,
+	"config": {
+		"allow-plugins": {
+			"pestphp/pest-plugin": true
+		}
+	}
 }
