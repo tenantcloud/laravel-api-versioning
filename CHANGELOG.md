@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/tenantcloud/laravel-api-versioning/compare/v1.1.0...v1.2.0) (2024-04-25)
+
+
+### Features
+
+* Template sync ([#9](https://github.com/tenantcloud/laravel-api-versioning/issues/9)) ([3c117d5](https://github.com/tenantcloud/laravel-api-versioning/commit/3c117d5fbc07c5c03ad9d19d8832baa21e0c85ac)), closes [#8](https://github.com/tenantcloud/laravel-api-versioning/issues/8)
+
 # [1.1.0](https://github.com/tenantcloud/laravel-api-versioning/compare/v1.0.0...v1.1.0) (2024-01-15)
 
 
