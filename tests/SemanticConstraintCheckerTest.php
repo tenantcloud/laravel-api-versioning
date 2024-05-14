@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use TenantCloud\APIVersioning\Constraint\BadConstraintException;
 use TenantCloud\APIVersioning\Constraint\Constraint;
 use TenantCloud\APIVersioning\Constraint\Operator;
@@ -28,10 +29,9 @@ class SemanticConstraintCheckerTest extends TestCase
 	}
 
 	/**
-	 * @dataProvider compareVersionsProvider
-	 *
-	 * @param array<string> $constraints
+	 * @param list<string> $constraints
 	 */
+	#[DataProvider('compareVersionsProvider')]
 	public function testCompareVersions(Version $version, array $constraints, bool $expectedResult): void
 	{
 		self::assertEquals($expectedResult, app(SemanticConstraintChecker::class)->compareVersions($version, $constraints));
@@ -77,10 +77,9 @@ class SemanticConstraintCheckerTest extends TestCase
 	}
 
 	/**
-	 * @dataProvider matchesProvider
-	 *
-	 * @param array<string> $constraints
+	 * @param list<string> $constraints
 	 */
+	#[DataProvider('matchesProvider')]
 	public function testMatches(Version $version, array $constraints, ?Constraint $expectedConstraint): void
 	{
 		self::assertEquals($expectedConstraint, app(SemanticConstraintChecker::class)->matches($version, $constraints));
@@ -126,11 +125,10 @@ class SemanticConstraintCheckerTest extends TestCase
 	}
 
 	/**
-	 * @dataProvider matchesWrongConstraintProvider
-	 *
-	 * @param array<string>           $wrongConstraints
+	 * @param list<string>            $wrongConstraints
 	 * @param class-string<Throwable> $exception
 	 */
+	#[DataProvider('matchesWrongConstraintProvider')]
 	public function testMatchesWrongConstraint(array $wrongConstraints, string $exception): void
 	{
 		$this->expectException($exception);
