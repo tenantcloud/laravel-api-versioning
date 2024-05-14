@@ -4,6 +4,4 @@ namespace TenantCloud\APIVersioning\Constraint;
 
 use Exception;
 
-class BadConstraintException extends Exception
-{
-}
+class BadConstraintException extends Exception {}

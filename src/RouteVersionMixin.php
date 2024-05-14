@@ -55,7 +55,7 @@ class RouteVersionMixin
 		$that = $this;
 
 		return function (Version $version) use ($that) {
-			/** @var string[] $constraints */
+			/** @var list<string> $constraints */
 			$constraints = array_keys($this->action['versions']);
 
 			$suggestedConstraint = $that->checker->matches($version, $constraints);
@@ -83,7 +83,7 @@ class RouteVersionMixin
 				return false;
 			}
 
-			/** @var string[] $constraints */
+			/** @var list<string> $constraints */
 			$constraints = array_keys($this->action['versions']);
 
 			return $that->checker->compareVersions($version, $constraints);
