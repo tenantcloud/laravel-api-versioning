@@ -1,3 +1,11 @@
+## [1.2.1](https://github.com/tenantcloud/laravel-api-versioning/compare/v1.2.0...v1.2.1) (2025-06-18)
+
+
+### Bug Fixes
+
+* Fixed phpstan issues. ([c1da8ef](https://github.com/tenantcloud/laravel-api-versioning/commit/c1da8efa622b63b2d841e2164c7655d68855f298))
+* Laravel 11 support ([8525b59](https://github.com/tenantcloud/laravel-api-versioning/commit/8525b59ce322dd5fc2be1f1e2f118822a264627b))
+
 # [1.2.0](https://github.com/tenantcloud/laravel-api-versioning/compare/v1.1.0...v1.2.0) (2024-04-25)
 
 
