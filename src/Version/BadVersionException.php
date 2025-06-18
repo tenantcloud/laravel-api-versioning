@@ -4,6 +4,4 @@ namespace TenantCloud\APIVersioning\Version;
 
 use Exception;
 
-class BadVersionException extends Exception
-{
-}
+class BadVersionException extends Exception {}
