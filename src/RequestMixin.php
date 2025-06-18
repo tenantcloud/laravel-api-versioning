@@ -3,7 +3,6 @@
 namespace TenantCloud\APIVersioning;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use TenantCloud\APIVersioning\Constraint\Constraint;
 use TenantCloud\APIVersioning\Constraint\ConstraintChecker;
 use TenantCloud\APIVersioning\Version\RequestVersionParser;
@@ -28,12 +27,13 @@ class RequestMixin
 		$that = $this;
 
 		return function (string|array $constraints) use ($that): ?Constraint {
+			/** @var string|list<string> $constraints */
 			/** @var Request $this */
 			$versionString = $that->requestVersionParser->parse($this);
 
 			$version = $that->versionParser->parse($versionString);
 
-			return $that->constraintChecker->matches($version, Arr::wrap($constraints));
+			return $that->constraintChecker->matches($version, is_array($constraints) ? $constraints : [$constraints]);
 		};
 	}
 }
