@@ -68,7 +68,7 @@ class RouteVersionMixin
 			$versionData = Arr::get($this->action['versions'], (string) $suggestedConstraint);
 
 			return [
-				$this->container->make(ltrim((string) Str::parseCallback($versionData['uses'])[0], '\\')),
+				$this->container->make(mb_ltrim((string) Str::parseCallback($versionData['uses'])[0], '\\')),
 				Str::parseCallback($versionData['uses'])[1],
 			];
 		};
