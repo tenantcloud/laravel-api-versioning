@@ -12,9 +12,7 @@ class BuiltInStringConstraintParser implements StringConstraintParser
 {
 	public const REGEX_VERSION_RULE = '([<>=]*)([\d.]*)';
 
-	public function __construct(
-		private readonly VersionParser $versionParser,
-	) {}
+	public function __construct(private readonly VersionParser $versionParser) {}
 
 	public function parse(string $constraint): Constraint
 	{

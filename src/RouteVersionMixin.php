@@ -21,9 +21,7 @@ use Tests\RouteVersionMixinTest;
  */
 class RouteVersionMixin
 {
-	public function __construct(
-		public readonly ConstraintChecker $checker
-	) {}
+	public function __construct(public readonly ConstraintChecker $checker) {}
 
 	/**
 	 * Fluent variant for "as" option of a resource.
